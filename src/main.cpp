@@ -70,7 +70,7 @@ void CheckAndSaveAps(std::vector<unsigned char>::iterator& NALstartinput, std::v
 		int apsid = NALstartinput[5];
 		std::vector<unsigned char> tmp(NALstartinput, NALendinput);
 		bufferAPS.erase(apsid);
-		bufferAPS.insert({ apsid, tmp });
+		bufferAPS.insert(std::make_pair( apsid, tmp ));
 	}
 }
 
@@ -153,11 +153,11 @@ int main(int argc, char* argv[]) {
 	}
 
 	//bufferAPS contains APSs with their type and id as int identifier
-	std::map<int, std::vector<unsigned char>> bufferaps;	
+	std::map<int, std::vector<unsigned char> > bufferaps;	
 
 	//Store input in vectors for easy processing
-	std::vector<unsigned char> bufferinputfile1(std::istreambuf_iterator<char>(inputfile1), {});
-	std::vector<unsigned char> bufferinputfile2(std::istreambuf_iterator<char>(inputfile2), {});
+	std::vector<unsigned char> bufferinputfile1((std::istreambuf_iterator<char>(inputfile1)), std::istreambuf_iterator<char>());
+	std::vector<unsigned char> bufferinputfile2((std::istreambuf_iterator<char>(inputfile2)), std::istreambuf_iterator<char>());
 	inputfile1.close();
 	inputfile2.close();
 
