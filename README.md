@@ -1,20 +1,40 @@
 # NALUProcessing
-Process NAL units of video streams.
+
+Process Network Abstraction Layer Units (NALU) of video streams encoded using the H.264/AVC, H.265/HEVC, or H.266/VVC standard.
+
+This tool is created to manipulate video streams without having to re-encode the stream which would otherwise result in loss of quality.
+Supported manipulations are:
+* Cutting videos at specified packets or frames.
+* Simulating packet loss by removing certain packets from the video stream.
+* Removing layers from scalable video streams.
+* Inserting frames from a different video stream, e.g. for the [Keyframe Insertion technique ](https://media.idlab.ugent.be/keyframe-insertion-electronics).
 
 ## Preparation of video files
-NALUProcessing only takes Annex B input video streams compressed using the following codecs: H.264/AVC, H.265/HEVC, H.266/VVC.
+
+NALUProcessing only takes Annex B input video streams compressed using the following codecs: 
+* H.264/AVC
+* H.265/HEVC
+* H.266/VVC
+
 The container (MP4, MKV, ...) must be removed from the video stream before processing can be performed by the NALUProcessing application.
+
+If the MP4 container contains H.264/AVC video, use the following command. 
 ```
-ffmpeg -i video.mp4 -codec copy -bsf:v h264_mp4toannexb video.h264
+ffmpeg -i video.mp4 -c:v copy -bsf:v h264_mp4toannexb video.h264
 ```
 
+If the MP4 container contains H.265/HEVC video, use the following command. 
+```
+ffmpeg -i video.mp4 -c:v copy -bsf:v hevc_mp4toannexb video.h265
+```
 
 ## CLI interface
-![NALUProcessing Interface](https://github.com/IDLabMedia/NALUProcessing/blob/main/docs/NALUProcessing_Interface.png)
+
+[NALUProcessing Interface](https://github.com/IDLabMedia/NALUProcessing/blob/main/docs/NALUProcessing_Interface.png)
 
 ```
 Usage:
-  Usage: ./NALUCombiner <Source> <Inject> <output> <NALid Source> [<NALidInject> <NALnum Source> <NALnum Inject> <APSrestore> <Codec>]
+  Usage: ./NALUProcessing <Source> <Inject> <output> <NALid Source> [<NALidInject> <NALnum Source> <NALnum Inject> <APSrestore> <Codec>]
 
     <input Source>                 input .264/.265/.266 Annex B stream
     <input Inject>                 input .264/.265/.266 Annex B stream
@@ -23,25 +43,30 @@ Usage:
     <NALid Inject = NALid Source>  NAL start pos to exchange, start count at 0
     <NALnum Source = 1>            number of NAL to exchange
     <NALnum Inject = 1>            number of NAL to exchange
-    <APSrestore = 0>               0: disable 
-	                               1: restore lost APS after NAL insert (only H.266); 
-								   2: option 1 + NALid only counts video slices
-	<Codec = 0>                    0: H.264/AVC 
-	                               1: H.265/HEVC 
-								   2:H.266/VVC 
+    <APSrestore = 0>               0: disable
+                                   1: restore lost APS after NAL insert (only H.266); 
+                                   2: option 1 + NALid only counts video slices
+    <Codec = 0>                    0: H.264/AVC 
+                                   1: H.265/HEVC 
+                                   2: H.266/VVC 
 ```
-## Usage example H.264/AVC
-![NALUProcessing Example H.264/AVC](https://github.com/IDLabMedia/NALUProcessing/blob/main/docs/NALUProcessing_ExampleH264.png)
 
+## Usage example H.264/AVC
+
+[NALUProcessing Example H.264/AVC](https://github.com/IDLabMedia/NALUProcessing/blob/main/docs/NALUProcessing_ExampleH264.png)
 
 ## Usage example H.266/VVC
-![NALUProcessing Example H.266/VVC](https://github.com/IDLabMedia/NALUProcessing/blob/main/docs/NALUProcessing_ExampleH266.png)
 
-
+[NALUProcessing Example H.266/VVC](https://github.com/IDLabMedia/NALUProcessing/blob/main/docs/NALUProcessing_ExampleH266.png)
 
 ## Reference
-This work was published in [MDPI Electronics](https://media.idlab.ugent.be/keyframe-insertion-electronics) and the [Data Compression Conference (DCC) 2022](https://media.idlab.ugent.be/keyframe-insertion).
 
+This work was published in:
+* [MDPI Electronics - Keyframe Insertion Enabling Low-Latency Random Access and Packet Loss Repair](https://media.idlab.ugent.be/keyframe-insertion-electronics) 
+* [Data Compression Conference (DCC) 2022 - Keyframe Insertion in H.264/AVC, H.265/HEVC, and H.266/VVC](https://media.idlab.ugent.be/keyframe-insertion)
+* [Picture Coding Symposium 2022 - Mixed-Resolution HESP](https://media.idlab.ugent.be/hesp-mixed-res)
+
+If you use the software, please cite the following paper:
 ```js
 @Article{electronics10060748,
 AUTHOR = {Van Wallendael, Glenn and Mareen, Hannes and Vounckx, Johan and Lambert, Peter},
