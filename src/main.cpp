@@ -65,7 +65,7 @@ bool IsVcl(std::vector<unsigned char>::iterator& NALstartinput, int codec) {
 	return false;
 }
 
-void CheckAndSaveAps(std::vector<unsigned char>::iterator& NALstartinput, std::vector<unsigned char>::iterator& NALendinput, std::map<int, std::vector<unsigned char>>& bufferAPS, int codec) {
+void CheckAndSaveAps(std::vector<unsigned char>::iterator& NALstartinput, std::vector<unsigned char>::iterator& NALendinput, std::map<int, std::vector<unsigned char> >& bufferAPS, int codec) {
 	if (IsAps(NALstartinput, codec)) { //if VVC NALU type PREFIX_APS_NUT or SUFFIX_APS_NUT
 		int apsid = NALstartinput[5];
 		std::vector<unsigned char> tmp(NALstartinput, NALendinput);
