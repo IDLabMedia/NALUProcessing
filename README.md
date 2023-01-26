@@ -67,7 +67,7 @@ This work was published in:
 * [Picture Coding Symposium 2022 - Mixed-Resolution HESP](https://media.idlab.ugent.be/hesp-mixed-res)
 
 If you use the software, please cite the following paper:
-```js
+```bibtex
 @Article{electronics10060748,
 AUTHOR = {Van Wallendael, Glenn and Mareen, Hannes and Vounckx, Johan and Lambert, Peter},
 TITLE = {Keyframe Insertion: Enabling Low-Latency Random Access and Packet Loss Repair},
