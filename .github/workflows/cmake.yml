@@ -39,7 +39,7 @@ jobs:
       run: |
         cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
         cp ${{github.workspace}}/build/${{ matrix.outputfile }} ${{github.workspace}}/build/${{ matrix.releasefile }}
-        find ${{github.workspace}}/build/
+        ls ${{github.workspace}}/build/
 
     - name: Test
       working-directory: ${{github.workspace}}/build
