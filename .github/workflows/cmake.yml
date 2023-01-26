@@ -19,6 +19,16 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            outputfile: NALUProcessing
+            releasefile: NALUProcessing_lin
+          - os: windows-latest
+            outputfile: NALUProcessing.exe
+            releasefile: NALUProcessing.exe
+          - os: macos-latest
+            outputfile: NALUProcessing
+            releasefile: NALUProcessing_mac
 
     steps:
     - uses: actions/checkout@v3
@@ -30,7 +40,9 @@ jobs:
 
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: |
+        cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        cp ${{github.workspace}}/build/${{ matrix.outputfile }} ${{github.workspace}}/build/${{ matrix.releasefile }}
 
     - name: Test
       working-directory: ${{github.workspace}}/build
@@ -44,4 +56,10 @@ jobs:
         # Artifact name
         name: NALUProcessing
         # A file, directory or wildcard pattern that describes what to upload
-        path: ${{github.workspace}}/build/*
+        path: ${{github.workspace}}/build/${{ matrix.releasefile }}
+        
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: ${{github.workspace}}/build/${{ matrix.releasefile }}
