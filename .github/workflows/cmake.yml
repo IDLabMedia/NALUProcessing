@@ -38,8 +38,8 @@ jobs:
       # Build your program with the given configuration
       run: |
         cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-        cp ${{github.workspace}}/build/${{ matrix.outputfile }} ${{github.workspace}}/build/${{ matrix.releasefile }}
-        ls ${{github.workspace}}/build/
+        cp ${{github.workspace}}/build/${{ matrix.outputfile }} ${{ matrix.releasefile }}
+        ls
 
     - name: Test
       working-directory: ${{github.workspace}}/build
@@ -53,10 +53,10 @@ jobs:
         # Artifact name
         name: NALUProcessing
         # A file, directory or wildcard pattern that describes what to upload
-        path: ${{github.workspace}}/build/${{ matrix.releasefile }}
+        path: ${{ matrix.releasefile }}
         
     - name: Release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        files: ${{github.workspace}}/build/${{ matrix.releasefile }}
+        files: ${{ matrix.releasefile }}
