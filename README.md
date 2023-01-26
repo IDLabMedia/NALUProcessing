@@ -2,7 +2,7 @@
 
 Process Network Abstraction Layer Units (NALU) of video streams encoded using the H.264/AVC, H.265/HEVC, or H.266/VVC standard.
 
-This tool is created to manipulate video streams without having to re-encode the stream which would otherwise result in loss of quality.
+This tool is created to manipulate video streams without having to re-encode the stream. Re encoding would otherwise result in loss of quality.
 Supported manipulations are:
 * Cutting videos at specified packets or frames.
 * Simulating packet loss by removing certain packets from the video stream.
