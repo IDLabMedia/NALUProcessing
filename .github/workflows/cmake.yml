@@ -21,7 +21,7 @@ jobs:
             releasefile: NALUProcessing_lin
           - os: windows-latest
             outputfile: Release/NALUProcessing.exe
-            releasefile: NALUProcessing.exe
+            releasefile: Release/NALUProcessing.exe
           - os: macos-latest
             outputfile: NALUProcessing
             releasefile: NALUProcessing_mac
