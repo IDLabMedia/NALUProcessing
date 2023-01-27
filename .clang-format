@@ -1,0 +1,8 @@
+---
+IndentWidth: '2'
+Language: Cpp
+DerivePointerAlignment: false
+PointerAlignment: Right
+AllowShortIfStatementsOnASingleLine: WithoutElse
+ColumnLimit: 80
+...
