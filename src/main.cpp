@@ -16,7 +16,7 @@ void print_help() {
 	<< "    <NALid Inject = NALid Source>  NAL start pos to exchange, start count at 0" << std::endl
 	<< "    <NALnum Source = 1>            number of NAL to exchange" << std::endl
 	<< "    <NALnum Inject = 1>            number of NAL to exchange" << std::endl
-	<< "    <APSrestore = 0>               0:  disable 1: restore lost APS after NAL insert (only H.266); 2: NALid only counts video slices" << std::endl
+	<< "    <APSrestore = 0>               0:  disable 1: restore lost APS after NAL insert (only H.266); 2: NALid only counts video slices + resore APS; 3: NALid only counts video slices" << std::endl
 	<< "    <Codec = 0>                    0: H.264/AVC; 1: H.265/HEVC; 2:H.266/VVC" << std::endl
 	<< std::endl;
   // clang-format on
@@ -190,7 +190,7 @@ int main(int argc, char *argv[]) {
     find_nal_unit(nalendinput1, bufferinputfile1);
     if (apsrestore == 1 || apsrestore == 2)
       check_and_save_aps(NALstartinputtmp, nalendinput1, bufferaps, codec);
-    if (apsrestore != 2 || is_vlc(NALstartinputtmp, codec)) ++i;
+    if ((apsrestore != 2 && apsrestore != 3) || is_vlc(NALstartinputtmp, codec)) ++i;
     NALstartinputtmp = nalendinput1;
   }
   if (nalstartinput1 < nalendinput1) {
@@ -206,7 +206,8 @@ int main(int argc, char *argv[]) {
     if (nalendinput2 + 1 >= bufferinputfile2.end()) break;
     ++nalendinput2;
     find_nal_unit(nalendinput2, bufferinputfile2);
-    if (apsrestore != 2 || is_vlc(NALstartinputtmp, codec)) ++i;
+    if ((apsrestore != 2 && apsrestore != 3) || is_vlc(NALstartinputtmp, codec))
+      ++i;
     NALstartinputtmp = nalendinput2;
   }
   outputfile.flush();
@@ -221,7 +222,8 @@ int main(int argc, char *argv[]) {
     find_nal_unit(nalendinput1, bufferinputfile1);
     if (apsrestore == 1 || apsrestore == 2)
       check_and_save_aps(NALstartinputtmp, nalendinput1, bufferaps, codec);
-    if (apsrestore != 2 || is_vlc(NALstartinputtmp, codec)) ++i;
+    if ((apsrestore != 2 && apsrestore != 3) || is_vlc(NALstartinputtmp, codec))
+      ++i;
     NALstartinputtmp = nalendinput1;
   }
 
@@ -233,7 +235,8 @@ int main(int argc, char *argv[]) {
     if (nalendinput2 + 1 >= bufferinputfile2.end()) break;
     ++nalendinput2;
     find_nal_unit(nalendinput2, bufferinputfile2);
-    if (apsrestore != 2 || is_vlc(NALstartinputtmp, codec)) ++i;
+    if ((apsrestore != 2 && apsrestore != 3) || is_vlc(NALstartinputtmp, codec))
+      ++i;
     NALstartinputtmp = nalendinput2;
   }
   if (nalstartinput2 < nalendinput2)
