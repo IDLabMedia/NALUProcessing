@@ -46,6 +46,8 @@ Usage:
     <APSrestore = 0>               0: disable
                                    1: restore lost APS after NAL insert (only H.266); 
                                    2: option 1 + NALid only counts video slices
+								   3: NALid only counts video slices ; 
+								   4: NALid counts video slices (Source) and NALid (Inject)
     <Codec = 0>                    0: H.264/AVC 
                                    1: H.265/HEVC 
                                    2: H.266/VVC 
