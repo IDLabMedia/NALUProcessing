@@ -43,17 +43,17 @@ Usage:
     <NALid Inject = NALid Source>  NAL start pos to exchange, start count at 0
     <NALnum Source = 1>            number of NAL to exchange
     <NALnum Inject = 1>            number of NAL to exchange
-    <Codec = 0>						0: H.264/AVC 
-									1: H.265/HEVC 
-									2: H.266/VVC 
-	<APSrestore = 0>				0: disable; 
-									1: restore lost APS from Source after NAL insert (only H.266); 
-									2: restore APS from Inject; 
-									3: restore APS from both
-	<Count = 0>						0: Count NAL id; 
-									1: Count video slices (Source) and NALid (Inject); 
-									2: Count NALid (Source) and video slices (Inject); 
-									3: Count both video slices
+    <Codec = 0>                    0: H.264/AVC 
+                                   1: H.265/HEVC 
+                                   2: H.266/VVC 
+    <APSrestore = 0>               0: disable; 
+                                   1: restore lost APS from Source after NAL insert (only H.266); 
+                                   2: restore APS from Inject; 
+                                   3: restore APS from both
+    <Count = 0>                    0: Count NAL id; 
+                                   1: Count video slices (Source) and NALid (Inject); 
+                                   2: Count NALid (Source) and video slices (Inject); 
+                                   3: Count both video slices
 ```
 
 ## Usage example H.264/AVC
