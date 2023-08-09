@@ -49,7 +49,7 @@ bool is_aps(std::vector<uint8_t>::iterator &nalstartinput, int codec) {
   return false;
 }
 
-bool is_vlc(std::vector<uint8_t>::iterator &NALstartinput, int codec) {
+bool is_vcl(std::vector<uint8_t>::iterator &NALstartinput, int codec) {
   if (codec == CODEC_AVC) {
     int nalutype = (NALstartinput[3] & (uint8_t)31);
     if (nalutype < 6) return true;
@@ -202,7 +202,7 @@ int main(int argc, char *argv[]) {
     if (apsrestore == 1 || apsrestore == 3)
       check_and_save_aps(NALstartinputtmp, nalendinput1, bufferapssource, codec);
     if ((countnal == 0 || countnal == 2) ||
-        is_vlc(NALstartinputtmp, codec))
+        is_vcl(NALstartinputtmp, codec))
       ++i;
     NALstartinputtmp = nalendinput1;
   }
@@ -221,7 +221,7 @@ int main(int argc, char *argv[]) {
     find_nal_unit(nalendinput2, bufferinputfile2);
     if (apsrestore == 2 || apsrestore == 3)
       check_and_save_aps(NALstartinputtmp, nalendinput2, bufferapsinject, codec);
-    if ((countnal == 0 || countnal == 1) || is_vlc(NALstartinputtmp, codec))
+    if ((countnal == 0 || countnal == 1) || is_vcl(NALstartinputtmp, codec))
       ++i;
     NALstartinputtmp = nalendinput2;
   }
@@ -238,7 +238,7 @@ int main(int argc, char *argv[]) {
     if (apsrestore == 1 || apsrestore == 3)
       check_and_save_aps(NALstartinputtmp, nalendinput1, bufferapssource, codec);
     if ((countnal == 0 || countnal == 2) ||
-        is_vlc(NALstartinputtmp, codec))
+        is_vcl(NALstartinputtmp, codec))
       ++i;
     NALstartinputtmp = nalendinput1;
   }
@@ -271,7 +271,7 @@ int main(int argc, char *argv[]) {
     if (nalendinput2 + 1 >= bufferinputfile2.end()) break;
     ++nalendinput2;
     find_nal_unit(nalendinput2, bufferinputfile2);
-    if ((countnal == 0 || countnal == 1) || is_vlc(NALstartinputtmp, codec))
+    if ((countnal == 0 || countnal == 1) || is_vcl(NALstartinputtmp, codec))
       ++i;
     NALstartinputtmp = nalendinput2;
   }
