@@ -1,24 +1,29 @@
-cmake_minimum_required (VERSION 2.8.11)
-project (NALUProcessing CXX)
-set(CMAKE_CXX_STANDARD 11)
+# minimum required cmake version
+cmake_minimum_required( VERSION 3.5 FATAL_ERROR )
 
-include(CheckCXXCompilerFlag)
+project( Processing )
 
-function(enable_cxx_compiler_flag_if_supported flag)
-    string(FIND "${CMAKE_CXX_FLAGS}" "${flag}" flag_already_set)
-    if(flag_already_set EQUAL -1)
-        check_cxx_compiler_flag("${flag}" flag_supported)
-        if(flag_supported)
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${flag}" PARENT_SCOPE)
-        endif()
-        unset(flag_supported CACHE)
-    endif()
-endfunction()
+# set default CMAKE_BUILD_TYPE to Release if not set
+if( NOT CMAKE_BUILD_TYPE )
+  set( CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE )
+endif()
 
-# example usage
-enable_cxx_compiler_flag_if_supported("-Wall")
-enable_cxx_compiler_flag_if_supported("-Wextra")
-enable_cxx_compiler_flag_if_supported("-pedantic")
+if( CMAKE_COMPILER_IS_GNUCC )
+  set( BUILD_STATIC OFF CACHE BOOL "Build static executables" )
+endif()
 
+# set c++11
+set( CMAKE_CXX_STANDARD 11 )
+set( CMAKE_CXX_STANDARD_REQUIRED ON )
 
-add_executable (NALUProcessing src/main.cpp)
+# compile everything position independent (even static libraries)
+set( CMAKE_POSITION_INDEPENDENT_CODE TRUE )
+
+# use folders in IDEs for projects (e.g. lib sample app test)
+set_property( GLOBAL PROPERTY USE_FOLDERS ON )
+
+# add needed subdirectories
+add_subdirectory( "src/Lib/" )
+add_subdirectory( "src/App/NaluProcessing" )
+add_subdirectory( "src/App/StreamProcessing" )
+
