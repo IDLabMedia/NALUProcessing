@@ -17,14 +17,14 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         include:
           - os: ubuntu-latest
-            outputfile: NALUProcessing
-            releasefile: NALUProcessing_lin
+            outputfile: NaluProcessing
+            releasefile: NaluProcessing_lin
           - os: windows-latest
-            outputfile: Release/NALUProcessing.exe
-            releasefile: NALUProcessing.exe
+            outputfile: Release/NaluProcessing.exe
+            releasefile: NaluProcessing.exe
           - os: macos-latest
-            outputfile: NALUProcessing
-            releasefile: NALUProcessing_mac
+            outputfile: NaluProcessing
+            releasefile: NaluProcessing_mac
 
     steps:
     - uses: actions/checkout@v3
