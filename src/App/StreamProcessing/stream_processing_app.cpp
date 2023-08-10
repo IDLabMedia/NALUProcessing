@@ -8,7 +8,7 @@
 void print_help() {
   // clang-format off
   std::cout
-	<< "Usage: StreamProcessing <Source> <Inject> <Output> <NALid Source> [<NALidInject> <NALnum Source> <NALnum Inject> <APSrestore> <Codec>]" << std::endl
+	<< "Usage: StreamProcessing <Source> <Inject> <Output> <TempId> [<Codec>]" << std::endl
   << std::endl
 	<< "    <Source>                       input .264/.265/.266 Annex B stream" << std::endl
 	<< "    <Inject>                       input .264/.265/.266 Annex B stream" << std::endl
@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
         insert_aps(bufferapsvclsource, bufferinputnalu1[nalu1_idx]);
       } else if (bufferinputnalu1[nalu1_idx].type == VCL) {
         // store src in output if larger temp id
-        if (bufferinputnalu1[nalu1_idx].temp_id < temp_id) {
+        if (bufferinputnalu1[nalu1_idx].temp_id > temp_id) {
           bool first_VCL_after_change = (injecting) ? true : false;
           injecting = false;
           if (first_VCL_after_change) { // push all APS parameter sets
@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
             insert_aps(bufferapsvclinject, bufferinputnalu2[nalu2_idx]);
           } else { // VCL
             // store inject in output if smaller temp id
-            if (bufferinputnalu2[nalu2_idx].temp_id >= temp_id) {
+            if (bufferinputnalu2[nalu2_idx].temp_id <= temp_id) {
               bool first_VCL_after_change = (!injecting) ? true : false;
               injecting = true;
               if (first_VCL_after_change) { // push all APS parameter sets
