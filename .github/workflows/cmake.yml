@@ -38,7 +38,7 @@ jobs:
       # Build your program with the given configuration
       run: |
         cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-        cp ${{github.workspace}}/build/${{ matrix.outputfile }} ${{ matrix.releasefile }}
+        cp ${{github.workspace}}/build/src/App/NaluProcessing/${{ matrix.outputfile }} ${{ matrix.releasefile }}
         ls
 
     - name: Test
