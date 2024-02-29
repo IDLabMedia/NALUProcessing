@@ -71,6 +71,36 @@ bool is_vcl(std::vector<uint8_t>::iterator &NALstartinput, CodecType codec) {
   return false;
 }
 
+NaluType get_nalu_type(std::vector<uint8_t>::iterator &NALstartinput,
+                       CodecType codec) {
+  int start_idx = 3; // first NAL has 00 00 00 01 instead of 00 00 01
+  if (NALstartinput[2] != 1) {
+    start_idx = 4;
+  }
+  if (codec == CODEC_AVC) {
+    int nalutype = (NALstartinput[start_idx] & (uint8_t)31);
+    if (nalutype < 6) return VCL;
+    if (nalutype == 7) return SPS;
+    if (nalutype == 8) return PPS;
+    if (nalutype == 13) return SPSExt;
+  } else if (codec == CODEC_HEVC) {
+    int nalutype = (NALstartinput[start_idx] >> 1);
+    if (nalutype < 32) return VCL;
+    if (nalutype == 32) return VPS;
+    if (nalutype == 33) return SPS;
+    if (nalutype == 34) return PPS;
+  } else if (codec == CODEC_VVC) {
+    int nalutype = (NALstartinput[start_idx + 1] >> 3);
+    if (nalutype < 12) return VCL;
+    if (nalutype == 14) return VPS;
+    if (nalutype == 15) return SPS;
+    if (nalutype == 16) return PPS;
+    if (nalutype == 17) return APS;
+    if (nalutype == 18) return APS;
+  }
+  return OTHER;
+}
+
 int get_apsid(std::vector<uint8_t>::iterator &NALstartinput, CodecType codec) {
   if (codec == CODEC_VVC) {
     int start_idx = 3; // first NAL has 00 00 00 01 instead of 00 00 01
@@ -107,11 +137,9 @@ int vector_to_nalu_vector(std::vector<uint8_t> &vectorbuffer,
       ++nalendinput1;
       continue;
     }
-    NaluType type =
-        (is_vcl(nalstartinput1, codec)) ? NaluType::VCL : NaluType::OTHER;
+    NaluType type = get_nalu_type(nalstartinput1, codec);
     int aps_id = 0;
-    if (is_aps(nalstartinput1, codec)) {
-      type = NaluType::APS;
+    if (type == APS) {
       aps_id = get_apsid(nalstartinput1, codec);
     }
     int temp_id = get_temporal_id(nalstartinput1, codec);
@@ -157,8 +185,7 @@ void check_and_save_aps(std::vector<uint8_t>::iterator &NALstartinput,
 
 void insert_aps(std::map<int, Nalu> &bufferaps, Nalu &nalu) {
   bufferaps.erase(nalu.aps_id);
-  bufferaps.insert(
-      std::make_pair(nalu.aps_id, std::move(nalu)));
+  bufferaps.insert(std::make_pair(nalu.aps_id, std::move(nalu)));
 }
 
 int process(std::vector<uint8_t> &bufferinputfile1,

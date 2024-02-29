@@ -26,4 +26,3 @@ set_property( GLOBAL PROPERTY USE_FOLDERS ON )
 add_subdirectory( "src/Lib/" )
 add_subdirectory( "src/App/NaluProcessing" )
 add_subdirectory( "src/App/StreamProcessing" )
-

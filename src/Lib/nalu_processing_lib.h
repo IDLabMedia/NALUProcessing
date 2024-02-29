@@ -5,7 +5,7 @@
 
 enum CodecType { CODEC_AVC = 0, CODEC_HEVC = 1, CODEC_VVC = 2 };
 
-enum NaluType { VCL = 0, APS, OTHER };
+enum NaluType { VCL = 0, APS, VPS, SPS, SPSExt, PPS, OTHER };
 
 class Nalu {
 public:
@@ -28,6 +28,9 @@ bool find_nal_unit(std::vector<uint8_t>::iterator &nalendinput,
 bool is_aps(std::vector<uint8_t>::iterator &nalstartinput, CodecType codec);
 
 bool is_vcl(std::vector<uint8_t>::iterator &NALstartinput, CodecType codec);
+
+NaluType get_nalu_type(std::vector<uint8_t>::iterator &NALstartinput,
+                       CodecType codec);
 
 int get_apsid(std::vector<uint8_t>::iterator &NALstartinput, CodecType codec);
 
