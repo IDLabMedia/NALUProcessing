@@ -5,6 +5,7 @@
 #include <map>
 #include <vector>
 #include <iterator>
+#include <algorithm>
 
 void print_help() {
   // clang-format off
