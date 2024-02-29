@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <iterator>
 
 void print_help() {
   // clang-format off
