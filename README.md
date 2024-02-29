@@ -28,7 +28,7 @@ If the MP4 container contains H.265/HEVC video, use the following command.
 ffmpeg -i video.mp4 -c:v copy -bsf:v hevc_mp4toannexb video.h265
 ```
 
-## CLI interface
+## CLI interface NALUProcessing
 
 ![NALUProcessing Interface](https://github.com/IDLabMedia/NALUProcessing/blob/main/docs/NALUProcessing_Interface.png)
 
@@ -56,13 +56,28 @@ Usage:
                                    3: Count both video slices
 ```
 
-## Usage example H.264/AVC
+### Usage example H.264/AVC
 
 ![NALUProcessing Example H.264/AVC](https://github.com/IDLabMedia/NALUProcessing/blob/main/docs/NALUProcessing_ExampleH264.png)
 
-## Usage example H.266/VVC
+### Usage example H.266/VVC
 
 ![NALUProcessing Example H.266/VVC](https://github.com/IDLabMedia/NALUProcessing/blob/main/docs/NALUProcessing_ExampleH266.png)
+
+
+## CLI interface StreamProcessing
+```
+Usage:
+  Usage: ./StreamProcessing <Source> <Inject> <Output> <TempId|File> [<Codec>]]
+
+    <input Source>                 input .264/.265/.266 Annex B stream
+    <input Inject>                 input .264/.265/.266 Annex B stream
+    <output>                       output .264/.265/.266 Annex B stream
+    <TempId|File>                  Temporal layers to switch (<TempId from Source, >=TempId from Inject) or file with frame numbers
+    <Codec = 0>                    0: H.264/AVC; 1: H.265/HEVC; 2:H.266/VVC
+```
+
+
 
 ## Reference
 
