@@ -17,14 +17,21 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         include:
           - os: ubuntu-latest
-            outputfile: NaluProcessing
-            releasefile: NaluProcessing_lin
+            outputfile_nal: NaluProcessing
+            releasefile_nal: NaluProcessing_lin
+            outputfile_stream: StreamProcessing
+            releasefile_stream: StreamProcessing_lin
           - os: windows-latest
-            outputfile: Release/NaluProcessing.exe
-            releasefile: NaluProcessing.exe
+            outputfile_nal: Release/NaluProcessing.exe
+            releasefile_nal: NaluProcessing.exe
+            outputfile_stream: Release/StreamProcessing.exe
+            releasefile_stream: StreamProcessing.exe
           - os: macos-latest
-            outputfile: NaluProcessing
-            releasefile: NaluProcessing_mac
+            outputfile_nal: NaluProcessing
+            releasefile_nal: NaluProcessing_mac
+            outputfile_stream: StreamProcessing
+            releasefile_stream: StreamProcessing_mac
+
 
     steps:
     - uses: actions/checkout@v3
@@ -38,7 +45,8 @@ jobs:
       # Build your program with the given configuration
       run: |
         cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-        cp ${{github.workspace}}/build/src/App/NaluProcessing/${{ matrix.outputfile }} ${{ matrix.releasefile }}
+        cp ${{github.workspace}}/build/src/App/NaluProcessing/${{ matrix.outputfile_nal }} ${{ matrix.releasefile_nal }}
+        cp ${{github.workspace}}/build/src/App/StreamProcessing/${{ matrix.outputfile_stream }} ${{ matrix.releasefile_stream }}
         ls
 
     - name: Test
@@ -51,12 +59,16 @@ jobs:
       uses: actions/upload-artifact@v3.1.2
       with:
         # Artifact name
-        name: NALUProcessing
+        name: Processing
         # A file, directory or wildcard pattern that describes what to upload
-        path: ${{ matrix.releasefile }}
+        path: |
+          ${{ matrix.releasefile_nal }}
+          ${{ matrix.releasefile_stream }}
         
     - name: Release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        files: ${{ matrix.releasefile }}
+        files: |
+          ${{ matrix.releasefile_nal }}
+          ${{ matrix.releasefile_stream }}
