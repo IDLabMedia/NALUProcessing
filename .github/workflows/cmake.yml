@@ -21,20 +21,23 @@ jobs:
             releasefile_nal: NaluProcessing_lin
             outputfile_stream: StreamProcessing
             releasefile_stream: StreamProcessing_lin
+            suffix: lin
           - os: windows-latest
             outputfile_nal: Release/NaluProcessing.exe
             releasefile_nal: NaluProcessing.exe
             outputfile_stream: Release/StreamProcessing.exe
             releasefile_stream: StreamProcessing.exe
+            suffix: win
           - os: macos-latest
             outputfile_nal: NaluProcessing
             releasefile_nal: NaluProcessing_mac
             outputfile_stream: StreamProcessing
             releasefile_stream: StreamProcessing_mac
+            suffix: mac
 
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
@@ -56,10 +59,10 @@ jobs:
       run: ctest -C ${{env.BUILD_TYPE}}
       
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4.3.1
       with:
         # Artifact name
-        name: Processing
+        name: Processing_${{ matrix.suffix }}
         # A file, directory or wildcard pattern that describes what to upload
         path: |
           ${{ matrix.releasefile_nal }}
