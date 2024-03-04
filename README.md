@@ -68,12 +68,12 @@ Usage:
 ## CLI interface StreamProcessing
 ```
 Usage:
-  Usage: ./StreamProcessing <Source> <Inject> <Output> <TempId|File> [<Codec>]]
+  Usage: ./StreamProcessing <Source> <Inject> <Output> <File> [<Codec>]]
 
     <input Source>                 input .264/.265/.266 Annex B stream
     <input Inject>                 input .264/.265/.266 Annex B stream
     <output>                       output .264/.265/.266 Annex B stream
-    <File>                         file with frame numbers
+    <File>                         file with frame numbers on each line
     <Codec = 0>                    0: H.264/AVC; 1: H.265/HEVC; 2:H.266/VVC
 ```
 
