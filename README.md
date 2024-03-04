@@ -77,6 +77,9 @@ Usage:
     <Codec = 0>                    0: H.264/AVC; 1: H.265/HEVC; 2:H.266/VVC
 ```
 
+### Usage example H.264/AVC
+
+![StreamProcessing Example H.264/AVC](https://github.com/IDLabMedia/NALUProcessing/blob/main/docs/StreamProcessing_ExampleH264.png)
 
 
 ## Reference
