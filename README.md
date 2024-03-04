@@ -73,7 +73,7 @@ Usage:
     <input Source>                 input .264/.265/.266 Annex B stream
     <input Inject>                 input .264/.265/.266 Annex B stream
     <output>                       output .264/.265/.266 Annex B stream
-    <TempId|File>                  Temporal layers to switch (<TempId from Source, >=TempId from Inject) or file with frame numbers
+    <File>                         Temporal layers to switch (<TempId from Source, >=TempId from Inject) or file with frame numbers
     <Codec = 0>                    0: H.264/AVC; 1: H.265/HEVC; 2:H.266/VVC
 ```
 
