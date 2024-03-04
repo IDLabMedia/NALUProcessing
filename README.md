@@ -68,7 +68,7 @@ Usage:
 ## CLI interface StreamProcessing
 ```
 Usage:
-  Usage: ./StreamProcessing <Source> <Inject> <Output> <TempId|File> [<Codec>]]
+  Usage: ./StreamProcessing <Source> <Inject> <Output> <File> [<Codec>]]
 
     <input Source>                 input .264/.265/.266 Annex B stream
     <input Inject>                 input .264/.265/.266 Annex B stream
