@@ -85,9 +85,11 @@ Usage:
 ## Reference
 
 This work was published in:
-* [MDPI Electronics - Keyframe Insertion Enabling Low-Latency Random Access and Packet Loss Repair](https://media.idlab.ugent.be/keyframe-insertion-electronics) 
+* [MDPI Electronics - Keyframe Insertion Enabling Low-Latency Random Access and Packet Loss Repair, 2021](https://media.idlab.ugent.be/keyframe-insertion-electronics) 
 * [Data Compression Conference (DCC) 2022 - Keyframe Insertion in H.264/AVC, H.265/HEVC, and H.266/VVC](https://media.idlab.ugent.be/keyframe-insertion)
 * [Picture Coding Symposium 2022 - Mixed-Resolution HESP](https://media.idlab.ugent.be/hesp-mixed-res)
+* [IEEE VCIP 2023 - P-Frame Injection](https://media.idlab.ugent.be/p-frame-injection)
+* [IEEE ISM 2023 - Temporal Layer Injection](https://media.idlab.ugent.be/temporal-layer-injection)
 
 If you use the software, please cite the following paper:
 ```bibtex
